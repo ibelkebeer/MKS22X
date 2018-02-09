@@ -22,4 +22,19 @@ public class QueenBoard{
 	}
 	return fin;
     }
+    public boolean solve(){
+	for(int x=0; x<board.length; x++){
+	    for(int y=0; y<board[x].length; y++){
+		if(board[x][y] != 0){
+		    throw new IllegalStateException();
+		}
+	    }
+	}
+	for(int x=0; x<board.length; x++){
+	    for(int y=0; y<board[x].length; y++){
+	    }
+	}
+    
+	return true;
+    }
 }
