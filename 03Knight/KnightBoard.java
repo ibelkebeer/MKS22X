@@ -52,7 +52,6 @@ public class KnightBoard{
 	    throw new IllegalArgumentException();
 	}
 	board[row][col] = 1;
-	System.out.println(this);
 	if(solveHelp(row, col, 2)){
 	    return true;
 	}
@@ -73,7 +72,6 @@ public class KnightBoard{
 	}
 	for(int x=0; x<8; x++){
 	    if(moveH(row,col,step,x)){
-		
 		if(solveHelp(row + coords[x][0],col + coords[x][1],step+1)){
 		    return true;
 		}
@@ -81,5 +79,41 @@ public class KnightBoard{
 	    }
 	}
 	return false;
+    }
+    public int countSolutions(int row, int col){
+	for(int x=0; x<board.length; x++){
+	    for(int y=0; y<board[x].length; y++){
+		if(board[x][y] != 0){
+		    throw new IllegalStateException();
+		}
+	    }
+	}
+	if(row < 0 || col < 0 || row > board.length || col > board[row].length){
+	    throw new IllegalArgumentException();
+	}
+	board[row][col] = 1;
+	int temp = solutionsHelp(row, col, 0);
+	board[row][col] = 0;
+	return temp;
+    }
+    private int solutionsHelp(int row, int col, int solutions){
+	boolean done = true;
+	for(int x=0; x<board.length; x++){
+	    for(int y=0; y<board[x].length; y++){
+		if(board[x][y] == 0){
+		    done = false;
+		}
+	    }
+	}
+	if(done){
+	    return 1;
+	}
+	for(int x=0; x < 8; x++){
+	    if(moveH(row,col,1,x)){
+		solutions += solutionsHelp(row + coords[x][0],col + coords[x][1], 0);
+		board[row + coords[x][0]][col + coords[x][1]] = 0;
+	    }
+	}
+	return solutions;
     }
 }
