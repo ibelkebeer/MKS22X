@@ -51,7 +51,7 @@ public class KnightBoard{
 		}
 	    }
 	}
-	if(row < 0 || col < 0 || row > board.length || col > board[row].length){
+	if(row < 0 || col < 0 || row >= board.length || col >= board[row].length){
 	    throw new IllegalArgumentException();
 	}
 	for(int x=0; x<moves.length; x++){
