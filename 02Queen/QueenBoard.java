@@ -1,6 +1,9 @@
 public class QueenBoard{
     private int[][] board;
     public QueenBoard(int size){
+	if(rows < 0 || cols < 0){
+	    throw new IllegalArgumentException();
+	}
 	board = new int[size][size];
     }
     private boolean addQueen(int r, int c){
