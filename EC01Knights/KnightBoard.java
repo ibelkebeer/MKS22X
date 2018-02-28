@@ -43,6 +43,46 @@ public class KnightBoard{
 	}
 	return false;
     }
+    public boolean solve(int row, int col){
+	for(int x=0; x<board.length; x++){
+	    for(int y=0; y<board[x].length; y++){
+		if(board[x][y] != 0){
+		    throw new IllegalStateException();
+		}
+	    }
+	}
+	if(row < 0 || col < 0 || row > board.length || col > board[row].length){
+	    throw new IllegalArgumentException();
+	}
+	board[row][col] = 1;
+	if(solveHelp(row, col, 2)){
+	    return true;
+	}
+	board[row][col] = 0;
+	return false;
+    }
+    private boolean solveHelp(int row, int col, int step){
+	boolean done = true;
+	for(int x=0; x<board.length; x++){
+	    for(int y=0; y<board[x].length; y++){
+		if(board[x][y] == 0){
+		    done = false;
+		}
+	    }
+	}
+	if(done){
+	    return true;
+	}
+	for(int x=0; x<8; x++){
+	    if(moveH(row,col,step,x)){
+		if(solveHelp(row + coords[x][0],col + coords[x][1],step+1)){
+		    return true;
+		}
+		board[row + coords[x][0]][col + coords[x][1]] = 0;
+	    }
+	}
+	return false;
+    }
     public boolean solveFast(int row, int col){
 	for(int x=0; x<board.length; x++){
 	    for(int y=0; y<board[x].length; y++){
