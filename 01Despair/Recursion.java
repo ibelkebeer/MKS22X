@@ -15,7 +15,7 @@ public class Recursion{
 	if(n<=1){
 	    return n;
 	}
-	return fibHelp(n,2,1,1);
+	return fibHelp(n,3,1,1);
     }
     public int fibHelp(int n, int next, int sum, int last){
 	int tempLast = sum;
