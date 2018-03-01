@@ -30,6 +30,9 @@ public class Recursion{
 	if(n < 0){
 	    throw new IllegalArgumentException();
 	}
+	if(n == 0){
+	    return 0;
+	}
 	return sqrtHelp(n, n/2);
     }
     public double sqrtHelp(double n, double g){
