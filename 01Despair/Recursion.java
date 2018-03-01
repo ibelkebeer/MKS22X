@@ -12,7 +12,7 @@ public class Recursion{
 	if(n < 0){
 	    throw new IllegalArgumentException();
 	}
-	if(n<=1){
+	if(n<=2){
 	    return n;
 	}
 	return fibHelp(n,3,1,1);
