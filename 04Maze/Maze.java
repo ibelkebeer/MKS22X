@@ -13,10 +13,21 @@ public class Maze{
 	    rows.add(line);
 	}
 	maze = new char[rows.size()][rows.get(0).length()];
+	int numS = 0;
+	int numE = 0;
 	for(int x=0; x<rows.size(); x++){
 	    for(int y=0; y<rows.get(0).length(); y++){
 		maze[x][y] = rows.get(x).charAt(y);
+		if(rows.get(x).charAt(y) == 'S'){
+		    numS++;
+		}
+		if(rows.get(x).charAt(y) == 'E'){
+		    numE++;
+		}
 	    }
+	}
+	if(numS != 1 || numE != 1){   
+	    throw new IllegalStateException("Error: Invalid number of start or end points");
 	}
 	coords = new int[][] {
 	    {1,0},
@@ -42,25 +53,16 @@ public class Maze{
 	System.out.println("\033[2J\033[1;1H");
     }
     public int solve(){
-	int numE = 0;
-	int numS = 0;
 	int row = 0;
 	int col = 0;
 	for(int x=1; x<maze.length - 1; x++){
-	    for(int y=1; y<maze.length - 1; y++){
+	    for(int y=1; y<maze[0].length - 1; y++){
 		if(maze[x][y] == 'S'){
 		    row = x;
 		    col = y;
-		    numS++;
-		}
-		if(maze[x][y] == 'E'){
-		    numE++;
 		}
 	    }
 	}
-	/*if(numS != 1 || numE != 1){
-	    throw new IllegalStateException("Error: Invalid number of start or end points");
-	    }*/
 	return solve(row,col);
     }
     private void wait(int millis){
@@ -84,11 +86,12 @@ public class Maze{
     }
     private boolean solveHelp(int row, int col){
 	maze[row][col] = '@';
-	if(animate){
+	/*if(animate){
             clearTerminal();
             System.out.println(this);
             wait(20);
         }
+	*/
 	for(int x=0; x<4; x++){
 	    if(maze[row + coords[x][0]][col + coords[x][1]] == 'E'){
 		return true;
