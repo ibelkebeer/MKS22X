@@ -86,12 +86,11 @@ public class Maze{
     }
     private boolean solveHelp(int row, int col){
 	maze[row][col] = '@';
-	/*if(animate){
+	if(animate){
             clearTerminal();
             System.out.println(this);
             wait(20);
         }
-	*/
 	for(int x=0; x<4; x++){
 	    if(maze[row + coords[x][0]][col + coords[x][1]] == 'E'){
 		return true;
