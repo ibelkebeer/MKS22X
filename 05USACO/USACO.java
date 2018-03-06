@@ -93,6 +93,10 @@ public class USACO{
 	    {-1,0},
 	    {0,-1}
 	};
+	int spaces = Math.abs(er-sr) + Math.abs(ec-sc);
+	if(spaces > t){
+	    return false;
+	}
 	if(t == 0 && sr == er && sc == ec){
 	    return true;
 	}
