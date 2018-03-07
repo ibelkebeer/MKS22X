@@ -82,7 +82,11 @@ public class Maze{
 		}
 	    }
 	}
-	return ats;
+	if(ats > 0){
+	    return ats;
+	}else{
+	    return -1;
+	}
     }
     private boolean solveHelp(int row, int col){
 	maze[row][col] = '@';
