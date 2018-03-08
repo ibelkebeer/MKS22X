@@ -77,37 +77,46 @@ public class USACO{
 		    pasture[x][y] = line.charAt(y);
 		}
 	    }
-	    int[] solutions = new int[1];
-	    solutions[0] = 0;
-	    countPaths(pasture,in.nextInt()-1,in.nextInt()-1,in.nextInt()-1,in.nextInt()-1,t,solutions);
-	    return solutions[0];
+	    int sr = in.nextInt()-1;
+	    int sc = in.nextInt()-1;
+	    int er = in.nextInt()-1;
+	    int ec = in.nextInt()-1;
+	    return countSolutions(pasture,sr,sc,er,ec,t);
 	}catch(FileNotFoundException e){
 	    System.exit(1);
 	}
 	return 0;
     }
-    private static boolean countPaths(char[][] pasture,int sr,int sc,int er,int ec,int t,int[] solutions){
-	int[][] coords = new int[][] {
-	    {1,0},
-	    {0,1},
-	    {-1,0},
-	    {0,-1}
-	};
-	int spaces = Math.abs(er-sr) + Math.abs(ec-sc);
-	if(spaces > t){
-	    return false;
-	}
+    private static int countSolutions(char[][] pasture,int sr,int sc,int er,int ec,int t){
+	int[] solutions = new int[1];
+	solutions[0] = 0;
+	countHelp(pasture,sr,sc,er,ec,t,solutions);
+	return solutions[0];
+    }
+    private static void countHelp(char[][] pasture,int sr,int sc,int er,int ec,int t,int[] solutions){
 	if(t == 0 && sr == er && sc == ec){
-	    return true;
+	    solutions[0]++;
 	}
-	for(int x=0; x<4; x++){
-	    if(sr+coords[x][0] < pasture.length && sr+coords[x][0] > -1 && sc+coords[x][1] < pasture[0].length && sc+coords[x][1] > -1 && t != 0 && pasture[sr+coords[x][0]][sc+coords[x][1]] != '*'){
-		if(countPaths(pasture,sr+coords[x][0],sc+coords[x][1],er,ec,t-1,solutions)){
-		    solutions[0]++;
+	if(t > 0){
+	    int[][] coords = new int[][] {
+		{0,1},
+		{1,0},
+		{0,-1},
+		{-1,0}
+	    };
+	    for(int x=0; x<4; x++){
+		int newR = sr + coords[x][0];
+		int newC = sc + coords[x][1];
+		int distance = Math.abs(er - newR) + Math.abs(ec - newC);
+		if(distance < t){
+		    if(newR < pasture.length && newR > -1 && newC < pasture[0].length && newC > -1){
+			if(pasture[newR][newC] != '*'){
+			    countHelp(pasture,newR,newC,er,ec,t-1,solutions);
+			}
+		    }
 		}
 	    }
 	}
-	return false;
     }
 }
 	    
