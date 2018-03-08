@@ -81,42 +81,41 @@ public class USACO{
 	    int sc = in.nextInt()-1;
 	    int er = in.nextInt()-1;
 	    int ec = in.nextInt()-1;
-	    return countSolutions(pasture,sr,sc,er,ec,t);
-	}catch(FileNotFoundException e){
-	    System.exit(1);
-	}
-	return 0;
-    }
-    private static int countSolutions(char[][] pasture,int sr,int sc,int er,int ec,int t){
-	int[] solutions = new int[1];
-	solutions[0] = 0;
-	countHelp(pasture,sr,sc,er,ec,t,solutions);
-	return solutions[0];
-    }
-    private static void countHelp(char[][] pasture,int sr,int sc,int er,int ec,int t,int[] solutions){
-	if(t == 0 && sr == er && sc == ec){
-	    solutions[0]++;
-	}
-	if(t > 0){
+	    int[][] oldMoves = new int[r][c];
+	    int[][] moves = new int[r][c];
+	    oldMoves[sr][sc] = 1;
+	    moves[sr][sc] = 1;
 	    int[][] coords = new int[][] {
 		{0,1},
 		{1,0},
 		{0,-1},
 		{-1,0}
 	    };
-	    for(int x=0; x<4; x++){
-		int newR = sr + coords[x][0];
-		int newC = sc + coords[x][1];
-		int distance = Math.abs(er - newR) + Math.abs(ec - newC);
-		if(distance < t){
-		    if(newR < pasture.length && newR > -1 && newC < pasture[0].length && newC > -1){
-			if(pasture[newR][newC] != '*'){
-			    countHelp(pasture,newR,newC,er,ec,t-1,solutions);
+	    while(t>0){
+		for(int i=0; i<r; i++){
+		    for(int j=0; j<c; j++){
+			if(oldMoves[i][j] > 0){
+			    for(int x=0; x<4; x++){
+				int newR = i + coords[x][0];
+				int newC = j + coords[x][1];
+				if(newR < r && newR > -1 && newC < c && newC > -1 && pasture[newR][newC] != '*'){
+				    moves[newR][newC] += oldMoves[i][j];
+				}
+			    }
+			    moves[i][j] = 0;
 			}
 		    }
 		}
+		for(int x=0; x<r; x++){
+		    oldMoves[x] = moves[x].clone();
+		}
+		t--;
 	    }
+	    return moves[er][ec];
+	}catch(FileNotFoundException e){
+	    System.exit(1);
 	}
+	return 0;
     }
 }
 	    
