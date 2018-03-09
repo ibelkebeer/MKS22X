@@ -74,19 +74,17 @@ public class Maze{
      }
     private int solve(int row, int col){
 	int ats = 0;
-        solveHelp(row,col);
-	for(int x=1; x<maze.length-1; x++){
-	    for(int y=1; y<maze[0].length-1; y++){
-		if(maze[x][y] == '@'){
-		    ats++;
+        if(solveHelp(row,col)){
+	    for(int x=1; x<maze.length-1; x++){
+		for(int y=1; y<maze[0].length-1; y++){
+		    if(maze[x][y] == '@'){
+			ats++;
+		    }
 		}
 	    }
-	}
-	if(ats > 0){
 	    return ats;
-	}else{
-	    return -1;
 	}
+	return -1;
     }
     private boolean solveHelp(int row, int col){
 	maze[row][col] = '@';
