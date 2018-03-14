@@ -36,8 +36,4 @@ public class Quick{
 	}
 	return data[v];
     }
-    public static void main(String[]args){
-	int[] test = {2,10,15,23,0,5};
-	System.out.println(quickselect(test,5));
-    }
 }
