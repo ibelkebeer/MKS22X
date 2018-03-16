@@ -1,14 +1,13 @@
 import java.util.*;
 public class Quick{
-    public static void swap(int[] data,int x,int y){
+    private static void swap(int[] data,int x,int y){
 	int temp = data[x];
 	data[x] = data[y];
 	data[y] = temp;
     }
-    public static void partition(int[] data, int start, int end){
+    private static void partition(int[] data, int start, int end){
 	int pivotIndex = (int)(Math.random() * (end - start + 1) + start);
 	int pivot = data[pivotIndex];
-	int first = start;
         swap(data,pivotIndex,start);
 	int lt = start;
 	int i = start+1;
@@ -34,10 +33,9 @@ public class Quick{
 	    partition(data,start,lt-1);
 	}
     }
-    public static int[] partition2(int[] data, int start, int end){
+    private static int[] partition2(int[] data, int start, int end){
 	int pivotIndex = (int)(Math.random() * (end - start) + start);
 	int pivot = data[pivotIndex];
-	int first = start;
         swap(data,pivotIndex,start);
 	int lt = start;
 	int i = start+1;
