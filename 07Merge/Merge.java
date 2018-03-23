@@ -1,3 +1,4 @@
+
 import java.util.*;
 public class Merge{
     public static void mergesort(int[]data){
@@ -8,7 +9,7 @@ public class Merge{
 	if(lo >= hi){
 	    return;
 	}
-	for(int x=0; x<data.length; x++){
+	for(int x=lo; x<=hi; x++){
 	    temp[x] = data[x];
 	}
 	int mid = (hi+lo)/2;

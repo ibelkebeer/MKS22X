@@ -1,11 +1,13 @@
 public class KnightBoard{
     private int[][] board;
     private int[][] coords;
+    private int[][] moves;
     public KnightBoard(int rows, int cols){
 	if(rows < 0 || cols < 0){
 	    throw new IllegalArgumentException();
 	}
 	board = new int[rows][cols];
+	moves = new int[rows][cols];
 	coords = new int[][] {
 	    {1,2},
 	    {1,-2},
