@@ -13,7 +13,7 @@ public class Merge{
 	    temp[x] = data[x];
 	}
 	int mid = (hi+lo)/2;
-	if(hi-lo <= 19){
+	if(hi-lo <= 20){
 	    insertsort(data,lo,hi);
 	}else{
 	    msort(temp,data,lo,mid);
