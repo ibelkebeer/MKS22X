@@ -13,9 +13,13 @@ public class Merge{
 	    temp[x] = data[x];
 	}
 	int mid = (hi+lo)/2;
-	msort(temp,data,lo,mid);
-	msort(temp,data,mid+1,hi);
-	merge(data,temp,lo,mid,mid+1,hi);
+	if(hi-lo <= 19){
+	    insertsort(data,lo,hi);
+	}else{
+	    msort(temp,data,lo,mid);
+	    msort(temp,data,mid+1,hi);
+	    merge(data,temp,lo,mid,mid+1,hi);
+	}
     }
     public static void merge(int[]data,int[]temp,int lo1,int hi1,int lo2,int hi2){
         int cur = lo1;
@@ -42,5 +46,30 @@ public class Merge{
 		lo2++;
 	    }
 	}
+    }
+    public static void insertsort(int[]data,int lo,int hi){
+	for(int x=lo+1; x<=hi; x++){
+	    if(data[x] < data[x-1]){
+		int index = x-1;
+		int cur = data[x];
+		while(index > lo && data[x] < data[index]){
+		    index--;
+		}
+		if(data[index] < data[x]){
+		    index++;
+		}
+		for(int i=x; i>index; i--){
+		    data[i] = data[i-1];
+		}
+		data[index] = cur;
+	    }
+	}
+    }
+    public static void swap(int[]data,int start,int end){
+ 	int temp = data[end];
+ 	for(int x=end; x>start; x--){
+ 	    data[x] = data[x-1];
+ 	}
+ 	data[start] = temp;
     }
 }
