@@ -6,31 +6,53 @@ public class Quick{
 	data[y] = temp;
     }
     private static void partition(int[] data, int start, int end){
-	int pivotIndex = (int)(Math.random() * (end - start + 1) + start);
-	int pivot = data[pivotIndex];
-        swap(data,pivotIndex,start);
-	int lt = start;
-	int i = start+1;
-	int gt = end;
-	while(i <= gt){
-	    if(data[i] == pivot){
-		i++;
+	if(end-start < 10){
+	    insertionsort(data,start,end);
+	}else{
+	    int pivotIndex = (int)(Math.random() * (end - start + 1) + start);
+	    int pivot = data[pivotIndex];
+	    swap(data,pivotIndex,start);
+	    int lt = start;
+	    int i = start+1;
+	    int gt = end;
+	    while(i <= gt){
+		if(data[i] == pivot){
+		    i++;
+		}
+		else if(data[i] > pivot){
+		    swap(data,i,gt);
+		    gt--;
+		}
+		else{
+		    swap(data,i,lt);
+		    lt++;
+		    i++;
+		}
 	    }
-	    else if(data[i] > pivot){
-		swap(data,i,gt);
-		gt--;
-	    }
-	    else{
-		swap(data,i,lt);
-		lt++;
-		i++;
+	    if(start < end-1){
+		if(i < data.length){
+		    partition(data,i,end);	    
+		}
+		partition(data,start,lt-1);
 	    }
 	}
-	if(start < end-1){
-	    if(i < data.length){
-		partition(data,i,end);	    
+    }
+    private static void insertionsort(int[]data,int lo,int hi){
+	for(int x=lo+1; x<=hi; x++){
+	    if(data[x] < data[x-1]){
+		int index = x-1;
+		int cur = data[x];
+		while(index > lo && data[x] < data[index]){
+		    index--;
+		}
+		if(data[index] < data[x]){
+		    index++;
+		}
+		for(int i=x; i>index; i--){
+		    data[i] = data[i-1];
+		}
+		data[index] = cur;
 	    }
-	    partition(data,start,lt-1);
 	}
     }
     private static int[] partition2(int[] data, int start, int end){
