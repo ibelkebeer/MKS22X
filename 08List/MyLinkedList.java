@@ -6,7 +6,7 @@ public class MyLinkedList{
 	last = new Node();
 	length = 0;
     }
-    public boolean add(int val){
+    public boolean add(Integer val){
         if(length == 0){
 	    first.setNext(last);
 	    last.setPrev(first);
@@ -56,7 +56,7 @@ public class MyLinkedList{
     public int size(){
 	return length;
     }
-    public Integer set(int index,int val){
+    public Integer set(int index,Integer val){
 	if(length > 0 && index >= 0 && index < length){
 	    Node cur = getNode(index);
 	    int temp =  cur.getVal();
@@ -162,10 +162,11 @@ public class MyLinkedList{
 	}
     }
     public boolean remove(Integer val){
-	if(first.getVal() == val){
+	if(first.getVal().equals(val)){
 	    if(length == 1){
 		first.setNext(null);
 		last.setPrev(null);
+		first.setVal(null);
 	    }else if(length == 2){
 		first.setVal(last.getVal());
 		last.setVal(null);
@@ -178,7 +179,7 @@ public class MyLinkedList{
 	}else{
 	    Node cur = first;
 	    for(int x=0; x<length-1; x++){
-		if(cur.getVal() == val){
+		if(cur.getVal().equals(val)){
 		    cur.getPrev().setNext(cur.getNext());
 		    cur.getNext().setPrev(cur.getPrev());
 		    length--;
@@ -186,7 +187,7 @@ public class MyLinkedList{
 		}
 		cur = cur.getNext();
 	    }
-	    if(cur.getVal() == val){
+	    if(cur.getVal().equals(val)){
 		if(length == 2){
 		    last.setVal(null);
 		}else{
