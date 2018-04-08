@@ -25,6 +25,13 @@ public class MyLinkedList{
 	}
 	return true;
     }
+    public void clear(){
+	first.setVal(null);
+	last.setVal(null);
+	first.setNext(null);
+	last.setPrev(null);
+	length = 0;
+    }
     public Integer get(int index){
 	if(length > 0 && index >= 0 && index < length){
 	    return getNode(index).getVal();
