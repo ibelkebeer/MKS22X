@@ -68,20 +68,20 @@ public class MyLinkedList{
     }
     public int indexOf(Integer val){
 	if(length==1){
-	    if(first.getVal() == val){
+	    if(first.getVal().equals(val)){
 		return 0;
 	    }
 	}else{
 	    Node cur = first;
 	    int temp = 0;
 	    for(int x=0; x<length-1; x++){
-		if(cur.getVal() == val){
+		if(cur.getVal().equals(val)){
 		    return x;
 		}
 		cur = cur.getNext();
 		temp++;
 	    }
-	    if(cur.getVal() == val){
+	    if(cur.getVal().equals(val)){
 		return temp;
 	    }
 	}
