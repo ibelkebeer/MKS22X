@@ -1,5 +1,5 @@
 import java.util.*;
-public class MyLinkedListImproved<T> implements Iterable<T>{
+public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T>{
     private Node first,last;
     private int length;
     public MyLinkedListImproved(){
@@ -257,6 +257,30 @@ public class MyLinkedListImproved<T> implements Iterable<T>{
 	    cur = cur.getNext();
 	    return cur.getPrev().getVal();
 	}
+    }
+    public int max(){
+	if(length > 0){
+	    T max = first.getVal();
+	    for(T next: this){
+		if(next.compareTo(max) == 1){
+		    max = next;
+		}
+	    }
+	    return indexOf(max);
+	}
+	return -1;
+    }
+    public int min(){
+	if(length > 0){
+	    T min = first.getVal();
+	    for(T next: this){
+		if(next.compareTo(min) == -1){
+		    min = next;
+		}
+	    }
+	    return indexOf(min);
+	}
+	return -1;
     }
 }
 
