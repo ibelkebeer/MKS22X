@@ -1,10 +1,14 @@
-public class MyLinkedListImproved<T>{
+import java.util.*;
+public class MyLinkedListImproved<T> implements Iterable<T>{
     private Node first,last;
     private int length;
     public MyLinkedListImproved(){
 	first = new Node();
 	last = new Node();
 	length = 0;
+    }
+    public MyLinkedListImprovedIterator iterator(){
+	return new MyLinkedListImprovedIterator();
     }
     public boolean add(T val){
         if(length == 0){
@@ -227,6 +231,31 @@ public class MyLinkedListImproved<T>{
 	}
 	public void setVal(T val){
 	    data = val;
+	}
+    }
+    private class MyLinkedListImprovedIterator implements Iterator<T>{
+	Node cur = first;
+	T temp;
+	public MyLinkedListImprovedIterator(){
+	}
+	public void remove(){
+	    throw new UnsupportedOperationException();
+	}
+	public boolean hasNext(){
+	    if(cur.getVal() == null){
+		cur.setVal(temp);
+		return false;
+	    }
+	    return true;
+	}
+	public T next(){
+	    if(cur.getNext() == null){
+		temp = cur.getVal();
+		cur.setVal(null);
+		return temp;
+	    }
+	    cur = cur.getNext();
+	    return cur.getPrev().getVal();
 	}
     }
 }
