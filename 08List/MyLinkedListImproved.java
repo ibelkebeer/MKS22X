@@ -262,7 +262,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	if(length > 0){
 	    T max = first.getVal();
 	    for(T next: this){
-		if(next.compareTo(max) == 1){
+		if(next.compareTo(max) >= 1){
 		    max = next;
 		}
 	    }
@@ -274,7 +274,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	if(length > 0){
 	    T min = first.getVal();
 	    for(T next: this){
-		if(next.compareTo(min) == -1){
+		if(next.compareTo(min) <= -1){
 		    min = next;
 		}
 	    }
