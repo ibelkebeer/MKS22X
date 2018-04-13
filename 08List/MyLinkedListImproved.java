@@ -47,7 +47,8 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	String fin = "[";
 	if(length == 1){
 	    fin += first.getVal();
-	}else{
+	}
+	if(length > 1){
 	    Node cur = first;
 	    for(int x=0; x<length-1; x++){
 		fin += cur.getVal() + ",";
@@ -238,24 +239,21 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	T temp;
 	public MyLinkedListImprovedIterator(){
 	}
-	public void remove(){
-	    throw new UnsupportedOperationException();
-	}
 	public boolean hasNext(){
-	    if(cur.getVal() == null){
-		cur.setVal(temp);
-		return false;
-	    }
-	    return true;
+	    return cur.getVal() != null;
 	}
 	public T next(){
-	    if(cur.getNext() == null){
-		temp = cur.getVal();
-		cur.setVal(null);
-		return temp;
+	    if(hasNext()){
+		if(cur.getNext() == null){
+		    temp = cur.getVal();
+		    cur = new Node();
+		    return temp;
+		}
+		cur = cur.getNext();
+		return cur.getPrev().getVal();
+	    }else{
+		throw new NoSuchElementException();
 	    }
-	    cur = cur.getNext();
-	    return cur.getPrev().getVal();
 	}
     }
     public int max(){
@@ -281,6 +279,31 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	    return indexOf(min);
 	}
 	return -1;
+    }
+    public void extend(MyLinkedListImproved<T> other){
+	if(other.length != 0){
+	    if(this.length == 1){
+		this.first.setNext(other.first);
+		other.first.setPrev(this.first);
+		if(other.length == 1){
+		    other.first.setNext(null);
+		    this.last = other.first;
+		}else{
+		    this.last = other.last;
+		}
+	    }else{
+		this.last.setNext(other.first);
+		other.first.setPrev(this.last);
+		if(other.length == 1){
+		    other.first.setNext(null);
+		    this.last = other.first;
+		}else{
+		    this.last = other.last;
+		}
+	    }
+	    this.length += other.length;
+	    other.length = 0;
+	}
     }
 }
 
