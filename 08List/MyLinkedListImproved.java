@@ -282,6 +282,10 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     }
     public void extend(MyLinkedListImproved<T> other){
 	if(other.length != 0){
+	    if(this.length == 0){
+		this.first = other.first;
+		this.last = other.last;
+	    }
 	    if(this.length == 1){
 		this.first.setNext(other.first);
 		other.first.setPrev(this.first);
