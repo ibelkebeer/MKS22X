@@ -21,6 +21,9 @@ public class MyDeque<E>{
 	end = 0;
 	size = 0;
     }
+    public int size(){
+	return size;
+    }
     public String toString(){
 	String fin = "[";
 	int temp = start+1;
