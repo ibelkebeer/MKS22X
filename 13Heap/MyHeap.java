@@ -1,15 +1,17 @@
 import java.util.*;
-public class MyHeap{
-    private Integer[] data;
+public class MyHeap<T extends Comparable<T>>{
+    private T[] data;
     private int size;
     private boolean max;
+    @SuppressWarnings("unchecked")
     public MyHeap(){
-	data = new Integer[10];
+	data = (T[])new Comparable[10];
 	size = 0;
 	max = true;
     }
+    @SuppressWarnings("unchecked")
     public MyHeap(boolean type){
-	data = new Integer[10];
+	data = (T[])new Comparable[10];
 	size = 0;
 	max = type;
     }
@@ -23,10 +25,10 @@ public class MyHeap{
     public int size(){
 	return size;
     }
-    public Integer peek(){
+    public T peek(){
 	return data[0];
     }
-    public void add(Integer element){
+    public void add(T element){
 	if(size == data.length){
 	    resize();
 	}
@@ -41,8 +43,8 @@ public class MyHeap{
 	    pushUp(parent);
 	}
     }
-    public Integer remove(){
-	Integer temp = data[0];
+    public T remove(){
+	T temp = data[0];
 	swap(0,size-1);
 	size--;
 	pushDown(0);
@@ -61,15 +63,16 @@ public class MyHeap{
 	    }
 	}
     }
+    @SuppressWarnings("unchecked")
     private void resize(){
-	Integer[] fin = new Integer[size * 2];
+	T[] fin = (T[])new Comparable[size * 2];
 	for(int x=0; x<data.length; x++){
 	    fin[x] = data[x];
 	}
 	data = fin;
     }
     private void swap(int x, int y){
-	Integer temp = data[x];
+	T temp = data[x];
 	data[x] = data[y];
 	data[y] = temp;
     }
