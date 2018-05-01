@@ -6,26 +6,16 @@ public class RunningMedians{
 	hi = new MyHeap<>(false);
     }
     public void add(Double element){
-	if(lo.size() == 0 && hi.size() == 0){
-	    lo.add(element);
-	}else if(lo.size() - hi.size() == 1 && element < hi.peek()){
-	    if(element < lo.peek()){
-		hi.add(lo.remove());
-		lo.add(element);
-	    }else{
-		hi.add(element);
-	    }
-	}else if(hi.size() - lo.size() == 1 && element > lo.peek()){
-	    if(element > hi.peek()){
-		lo.add(hi.remove());
-		hi.add(element);
-	    }else{
-		hi.add(element);
-	    }
-	}else if(element <= lo.peek()){
+	if(lo.size() == 0 || element < lo.peek()){
 	    lo.add(element);
 	}else{
 	    hi.add(element);
+	}
+	if(lo.size() - hi.size() == 2){
+	    hi.add(lo.remove());
+	}
+	if(hi.size() - lo.size() == 2){
+	    lo.add(hi.remove());
 	}
     }
     public int size(){
