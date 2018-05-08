@@ -34,7 +34,6 @@ public class MazeSolver{
 			}
 			return true;
 		    }else{
-			System.out.println(1);
 			frontier.add(neighbors[i]);
 			maze.set(neighbors[i].getX(),neighbors[i].getY(),'?');
 		    }

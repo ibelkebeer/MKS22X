@@ -20,7 +20,7 @@ public class Maze{
 	for(int i=0; i<4; i++){
 	    int x = L.getX() + coords[i][0];
 	    int y = L.getY() + coords[i][1];
-	    if(x>0 && y>0 && y<maze.length-1 && x<maze[0].length-1 && (maze[x][y]==' ' || maze[x][y]=='E')){
+	    if(maze[x][y]==' ' || maze[x][y]=='E'){
 		neighbors[i] = new Location(x,y,L);
 	    }
 	}
