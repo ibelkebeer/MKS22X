@@ -27,7 +27,7 @@ public class MazeSolver{
 			    maze.set(neighbors[i].getX(),neighbors[i].getY(),'@');
 			}
 			return true;
-		    }else if(neighbors[i] != null){
+		    }else{
 			frontier.add(neighbors[i]);
 			maze.set(neighbors[i].getX(),neighbors[i].getY(),'?');
 		    }

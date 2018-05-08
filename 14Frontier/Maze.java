@@ -103,7 +103,7 @@ public class Maze{
     }
 
     public String toStringColor(){
-	return toStringColor(99);
+	return toStringColor(30);
     }
 
     public String toStringColor(int delay){
