@@ -11,7 +11,13 @@ public class MazeSolver{
     }
 
     public boolean solve(int mode){
-        frontier = new FrontierQueue();
+	if(mode == 0){
+	    frontier = new FrontierQueue();
+	}else if(mode == 1){
+	    frontier = new FrontierStack();
+	}else{
+	    throw new IllegalArgumentException();
+	}
 	frontier.add(maze.getStart());
 	while(frontier.hasNext()){
 	    Location cur = frontier.next();
@@ -28,6 +34,7 @@ public class MazeSolver{
 			}
 			return true;
 		    }else{
+			System.out.println(1);
 			frontier.add(neighbors[i]);
 			maze.set(neighbors[i].getX(),neighbors[i].getY(),'?');
 		    }
