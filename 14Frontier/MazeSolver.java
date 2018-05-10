@@ -7,7 +7,7 @@ public class MazeSolver{
     }
 
     public boolean solve(){
-	return solve(0);
+	return solve(2);
     }
 
     public boolean solve(int mode){
@@ -15,6 +15,8 @@ public class MazeSolver{
 	    frontier = new FrontierQueue();
 	}else if(mode == 1){
 	    frontier = new FrontierStack();
+	}else if(mode == 2){
+	    frontier = new FrontierPriorityQueue();
 	}else{
 	    throw new IllegalArgumentException();
 	}
