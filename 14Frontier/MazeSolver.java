@@ -7,7 +7,7 @@ public class MazeSolver{
     }
 
     public boolean solve(){
-	return solve(2);
+	return solve(3);
     }
 
     public boolean solve(int mode){
@@ -15,7 +15,7 @@ public class MazeSolver{
 	    frontier = new FrontierQueue();
 	}else if(mode == 1){
 	    frontier = new FrontierStack();
-	}else if(mode == 2){
+	}else if(mode == 2 || mode == 3){
 	    frontier = new FrontierPriorityQueue();
 	}else{
 	    throw new IllegalArgumentException();
@@ -23,10 +23,15 @@ public class MazeSolver{
 	frontier.add(maze.getStart());
 	while(frontier.hasNext()){
 	    Location cur = frontier.next();
+	    Location[] neighbors;
 	    if(cur != maze.getStart()){
 		maze.set(cur.getX(),cur.getY(),'.');
 	    }
-	    Location[] neighbors = maze.getNeighbors(cur);
+	    if(mode != 3){
+		neighbors = maze.getNeighbors(cur,0);
+	    }else{
+		neighbors = maze.getNeighbors(cur,1);
+	    }
 	    for(int i=0; i<4; i++){
 		if(neighbors[i] != null){
 		    if(maze.get(neighbors[i].getX(),neighbors[i].getY()) == 'E'){

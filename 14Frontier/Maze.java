@@ -9,7 +9,7 @@ public class Maze{
     private char[][]maze;
 
 
-    public Location[] getNeighbors(Location L){
+    public Location[] getNeighbors(Location L,int mode){
 	int[][] coords = new int[][] {
 	    {0,-1},
 	    {1,0},
@@ -21,7 +21,11 @@ public class Maze{
 	    int x = L.getX() + coords[i][0];
 	    int y = L.getY() + coords[i][1];
 	    if(maze[x][y]==' ' || maze[x][y]=='E'){
-		neighbors[i] = new Location(x,y,L,Math.abs(end.getX()-x) + Math.abs(end.getY()-y));
+		if(mode == 0){
+		    neighbors[i] = new Location(x,y,L,Math.abs(end.getX()-x) + Math.abs(end.getY()-y),0);
+		}else{
+		    neighbors[i] = new Location(x,y,L,Math.abs(end.getX()-x) + Math.abs(end.getY()-y) + L.getSteps(), L.getSteps()+1);
+		}
 	    }
 	}
 	return neighbors;
@@ -98,8 +102,8 @@ public class Maze{
 	  The start/end Locations may need more information later when we add
 	  other kinds of frontiers!
 	*/
-	end = new Location(endr,endc,null,0);
-	start = new Location(startr,startc,null,0);
+	end = new Location(endr,endc,null,0,0);
+	start = new Location(startr,startc,null,0,0);
     }
 
     public String toStringColor(){
