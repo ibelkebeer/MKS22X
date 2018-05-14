@@ -102,8 +102,8 @@ public class Maze{
 	  The start/end Locations may need more information later when we add
 	  other kinds of frontiers!
 	*/
-	end = new Location(endr,endc,null,0,1);
-	start = new Location(startr,startc,null,0,0);
+	end = new Location(endr,endc,null,0,0);
+	start = new Location(startr,startc,null,0,1);
     }
 
     public String toStringColor(){
