@@ -1,13 +1,25 @@
 public class MazeSolver{
     private Maze maze;
     private Frontier frontier;
+    private boolean animate;
+    private boolean AStar;
 
     public MazeSolver(String mazeText){
 	maze = new Maze(mazeText);
+	animate = false;
+	AStar = false;
     }
 
     public boolean solve(){
-	return solve(3);
+	return solve(2);
+    }
+
+    public void setAStar(boolean mode){
+	AStar = mode;
+    }
+
+    public void setAnimate(boolean mode){
+	animate = mode;
     }
 
     public boolean solve(int mode){
@@ -20,6 +32,9 @@ public class MazeSolver{
 	}else{
 	    throw new IllegalArgumentException();
 	}
+	if(mode == 3){
+	    setAStar(true);
+	}
 	frontier.add(maze.getStart());
 	while(frontier.hasNext()){
 	    Location cur = frontier.next();
@@ -27,10 +42,10 @@ public class MazeSolver{
 	    if(cur != maze.getStart()){
 		maze.set(cur.getX(),cur.getY(),'.');
 	    }
-	    if(mode != 3){
-		neighbors = maze.getNeighbors(cur,0);
-	    }else{
+	    if(AStar){
 		neighbors = maze.getNeighbors(cur,1);
+	    }else{
+		neighbors = maze.getNeighbors(cur,0);
 	    }
 	    for(int i=0; i<4; i++){
 		if(neighbors[i] != null){
@@ -46,7 +61,9 @@ public class MazeSolver{
 		    }
 		}
 	    }
-	    System.out.println(maze.toStringColor());
+	    if(animate){
+		System.out.println(maze.toStringColor());
+	    }
 	}
 	return false;
     }
