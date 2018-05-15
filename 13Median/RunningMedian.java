@@ -1,7 +1,7 @@
 import java.util.*;
-public class RunningMedians{
+public class RunningMedian{
     private MyHeap<Double> lo, hi;
-    public RunningMedians(){
+    public RunningMedian(){
 	lo = new MyHeap<>();
 	hi = new MyHeap<>(false);
     }
