@@ -3,9 +3,6 @@ public class Calculator{
     public static double eval(String data){
 	LinkedList<Double> a = new LinkedList<>();
 	String num = "";
-	if(data.length() == 1){
-	    return Double.parseDouble(data);
-	}
 	for(int x=0; x<data.length(); x++){
 	    char cur = data.charAt(x);
 	    if(cur == ' '){
@@ -32,6 +29,9 @@ public class Calculator{
 	    }else{
 		num += cur;
 	    }
+	}
+	if(!num.equals("")){
+	    return Double.parseDouble(data);
 	}
 	return a.get(0);
     }
