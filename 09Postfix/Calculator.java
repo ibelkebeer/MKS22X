@@ -1,30 +1,33 @@
 import java.util.*;
 public class Calculator{
     public static double eval(String data){
-	LinkedList<Double> a = new LinkedList<>();
+	Stack<Double> a = new Stack<>();
 	String num = "";
+	if(data.indexOf(" ") == -1){
+	    return Double.parseDouble(data);
+	}
 	for(int x=0; x<data.length(); x++){
 	    char cur = data.charAt(x);
-	    if(cur == ' '){
-		a.add(Double.parseDouble(num));
+	    if(cur == ' ' && num != ""){
+		a.push(Double.parseDouble(num));
 		num = "";
 	    }else if(cur == '+'){
-		a.add(a.removeLast() + a.removeLast());
+		a.push(a.pop() + a.pop());
 		x++;
 	    }else if(cur == '-'){
-		double temp = a.removeLast();
-		a.add(a.removeLast() - temp);
+		double temp = a.pop();
+		a.push(a.pop() - temp);
 		x++;
 	    }else if(cur == '*'){
-		a.add(a.removeLast() * a.removeLast());
+		a.push(a.pop() * a.pop());
 		x++;
 	    }else if(cur == '/'){
-		double temp = a.removeLast();
-		a.add(a.removeLast() / temp);
+		double temp = a.pop();
+		a.push(a.pop() / temp);
 		x++;
 	    }else if(cur == '%'){
-		double temp = a.removeLast();
-		a.add(a.removeLast() % temp);
+		double temp = a.pop();
+		a.push(a.pop() % temp);
 		x++;
 	    }else{
 		num += cur;
@@ -33,6 +36,6 @@ public class Calculator{
 	if(!num.equals("")){
 	    return Double.parseDouble(data);
 	}
-	return a.get(0);
+	return a.pop();
     }
 }
