@@ -26,6 +26,9 @@ public class MyHeap<T extends Comparable<T>>{
 	return size;
     }
     public T peek(){
+	if(size == 0){
+	    throw new NoSuchElementException();
+	}
 	return data[0];
     }
     public void add(T element){
@@ -44,6 +47,9 @@ public class MyHeap<T extends Comparable<T>>{
 	}
     }
     public T remove(){
+	if(size == 0){
+	    throw new NoSuchElementException();
+	}
 	T temp = data[0];
 	swap(0,size-1);
 	size--;
@@ -53,14 +59,15 @@ public class MyHeap<T extends Comparable<T>>{
     private void pushDown(int index){
 	int L = index*2+1;
 	int R = index*2+2;
-	if(L < size() && R < size()){
-	    if(max && data[index].compareTo(data[L]) < 0 || !max && data[index].compareTo(data[L]) > 0){	    
-		swap(index,L);
-		pushDown(L);
-	    }else if(max && data[index].compareTo(data[R]) < 0 || !max && data[index].compareTo(data[R]) > 0){	    
-		swap(index,R);
-		pushDown(R);
-	    }
+	if(L < size() && ((max && data[index].compareTo(data[L]) < 0 && (R >= size() || data[R].compareTo(data[L]) <= 0)) ||
+			  (!max && data[index].compareTo(data[L]) > 0 && (R >= size() || data[R].compareTo(data[L]) >= 0)))){
+	    swap(index,L);	    
+	    pushDown(L);
+	}
+	else if(R < size() && ((max && data[index].compareTo(data[R]) < 0 && (L >= size() || data[L].compareTo(data[R]) <= 0)) ||
+			       (!max && data[index].compareTo(data[R]) > 0 && (L >= size() || data[L].compareTo(data[R]) >= 0)))){
+	    swap(index,R);
+	    pushDown(R);			     	    
 	}
     }
     @SuppressWarnings("unchecked")
