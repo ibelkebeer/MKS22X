@@ -9,9 +9,10 @@
     path = sketchPath(audiofile);
     sample = new SoundFile(this,path);
     sample.loop();
-    rect(0,height-20,50,20);
-    rect(50,height-20,50,20);
-    rect(100,height-20,50,20);
+    rect(0,height-40,100,40);
+    rect(100,height-40,100,40);
+    rect(200,height-40,100,40);
+    rect(300,height-40,100,40);
   }
   void draw(){
     sample.rate(speed);
@@ -28,10 +29,13 @@
     if(overButton(0,height-40,100,40)){
       speed = 0.25;
     }
-    if(overButton(50,height-40,100,40)){
+    if(overButton(100,height-40,100,40)){
       speed = 0.5;
     }
-    if(overButton(100,height-40,100,40)){
+    if(overButton(200,height-40,100,40)){
       speed = 1;
+    }
+    if(overButton(300,height-40,100,40)){
+      speed = 2;
     }
   }
