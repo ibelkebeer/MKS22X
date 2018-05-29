@@ -7,6 +7,8 @@ float bpm;
 float lineY = 620;
 int mode = 0;
 int line = 0;
+float time;
+float ellapsedTime;
 Map game;
 void setup(){
   size(660,660);
@@ -15,10 +17,13 @@ void setup(){
   sample = new SoundFile(this,path);
   sample.cue(.1);
   sample.loop();
+  time = millis();
+  ellapsedTime = 0;
   game = new Map(180,sample.duration(),2);
 }
 void draw(){
   sample.rate(speed);
+  ellapsedTime = millis() - time;
   background(255);
   fill(255);
   rect(0,height-40,100,40);
@@ -77,6 +82,8 @@ void mouseClicked(){
   if(overButton(300,height-40,100,40)){
     sample.stop();
     sample.loop();
+    ellapsedTime = 0;
+    time = millis();
     lineY = 640;
     line = 0;
   }
@@ -95,6 +102,26 @@ void mouseClicked(){
     }
     else{
       game.addK((Math.abs(int(mouseY)-660) / 40)+line);
+    }
+  }
+}
+void keyPressed(){
+  if(key == CODED){
+    if(keyCode == LEFT){
+      if(ellapsedTime >= 1){
+        time += 1000;
+        ellapsedTime = millis() - time;
+        sample.jump(ellapsedTime/1000);
+        line -= 6;
+      }
+    }
+    if(keyCode == RIGHT){
+      if(ellapsedTime <= sample.duration() * 1000){
+        time -= 1000;
+        ellapsedTime = millis() - time;
+        sample.jump(ellapsedTime/1000);
+        line += 6;
+      }
     }
   }
 }
