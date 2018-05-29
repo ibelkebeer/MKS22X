@@ -4,7 +4,7 @@ String audiofile = "Song2.mp3";
 String path;
 float speed = 1;
 float bpm;
-float lineY = 640;
+float lineY = 620;
 int mode = 0;
 int line = 0;
 Map game;
@@ -33,37 +33,34 @@ void draw(){
   rect(465,0,65,660);
   rect(530,0,65,660);
   rect(595,0,65,660);
-  for(float i=lineY; i>=0; i-=20){
-    line(400,i,660,i);
-    if(game.getLine((Math.abs(int(i-660)) / 20)+line).getD() == 1){
-      fill(75,250,250);
-      rect(400,i,65,20);
-    }
-    if(game.getLine((Math.abs(int(i-660)) / 20)+line).getF() == 1){
-      fill(75,250,250);
-      rect(465,i,65,20);
-    }
-    if(game.getLine((Math.abs(int(i-660)) / 20)+line).getJ() == 1){
-      fill(75,250,250);
-      rect(530,i,65,20);
-    }
-    if(game.getLine((Math.abs(int(i-660)) / 20)+line).getK() == 1){
-      fill(75,250,250);
-      rect(595,i,65,20);
-    }
-  }
-  increment();
+  fill(75,250,250);
   if(mode == 1){
-    rect(mouseX-32.5,mouseY-10,65,20);
+    rect(mouseX-32.5,mouseY-20,65,40);
   }
+  for(float i=lineY; i>=0; i-=40){
+    line(400,i,660,i);
+    if(game.getLine((Math.abs(int(i-660)) / 40)+line).getD() == 1){
+      rect(400,i,65,40);
+    }
+    if(game.getLine((Math.abs(int(i-660)) / 40)+line).getF() == 1){
+      rect(465,i,65,40);
+    }
+    if(game.getLine((Math.abs(int(i-660)) / 40)+line).getJ() == 1){
+      rect(530,i,65,40);
+    }
+    if(game.getLine((Math.abs(int(i-660)) / 40)+line).getK() == 1){
+      rect(595,i,65,40);
+    }
+  }
+  increment();  
 }
 boolean overButton(int x, int y, int w, int h){
   return mouseX >= x && mouseX <= x+w && mouseY >= y && mouseY <= y+h;
 }
 void increment(){
-  lineY += 1 * speed;
+  lineY += 1 * speed * 4;
   if(lineY == 660){
-    lineY = 640;
+    lineY = 620;
     line++;
   }
 }
@@ -88,16 +85,16 @@ void mouseClicked(){
   }
   if(mode == 1 && overButton(400,0,260,660)){
     if(mouseX < 465){
-      game.addD((Math.abs(int(mouseY)-660) / 20)+line);
+      game.addD((Math.abs(int(mouseY)-660) / 40)+line);
     }
     else if(mouseX < 530){
-      game.addF((Math.abs(int(mouseY)-660) / 20)+line);
+      game.addF((Math.abs(int(mouseY)-660) / 40)+line);
     }
     else if(mouseX < 595){
-      game.addJ((Math.abs(int(mouseY)-660) / 20)+line);
+      game.addJ((Math.abs(int(mouseY)-660) / 40)+line);
     }
     else{
-      game.addK((Math.abs(int(mouseY)-660) / 20)+line);
+      game.addK((Math.abs(int(mouseY)-660) / 40)+line);
     }
   }
 }
