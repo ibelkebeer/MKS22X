@@ -9,17 +9,17 @@ public class Line{
     j=0;
     k=0;
   }
-  public void addD(){
-    d = 1;
+  public void setD(int val){
+    d = val;
   }
-  public void addF(){
-    f = 1;
+  public void setF(int val){
+    f = val;
   }
-  public void addJ(){
-    j = 1;
+  public void setJ(int val){
+    j = val;
   }
-  public void addK(){
-    k = 1;
+  public void setK(int val){
+    k = val;
   }
   public int getD(){
     return d;
@@ -33,4 +33,5 @@ public class Line{
   public int getK(){
     return k;
   }
+  
 }
