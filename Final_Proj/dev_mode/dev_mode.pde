@@ -1,10 +1,10 @@
 import processing.sound.*;
 SoundFile sample;
-String audiofile = "Song2.mp3";
-String path;
+SoundFile hit;
+String path1;
+String path2;
 float speed = 1;
-float bpm;
-float lineY = 620;
+float lineY;
 int mode = 0;
 int line = 0;
 float time;
@@ -19,16 +19,18 @@ Map game;
 void setup(){
   size(660,660);
   background(255);
-  path = sketchPath(audiofile);
-  sample = new SoundFile(this,path);
-  sample.cue(.1);
-  sample.loop();
   time = millis();
   ellapsedTime = 0;
-  game = new Map(180,sample.duration(),2);
+  path1 = sketchPath("Song2.mp3");
+  path2 = sketchPath("hit.wav");
+  sample = new SoundFile(this,path1);
+  hit = new SoundFile(this,path2);
+  game = new Map(sample,hit,180,"Song2");
+  game.play();
+  lineY = 660 - game.size();
 }
 void draw(){
-  sample.rate(speed);
+  game.rate(speed);
   ellapsedTime = millis() - time;
   background(255);
   fill(255);
@@ -58,11 +60,11 @@ void draw(){
   text("remove",200,height-40);
   fill(75,250,250);
   if(mode == 1){
-    rect(mouseX-32.5,mouseY-20,65,40);
+    rect(mouseX-32.5,mouseY-20,65,game.size());
   }
   fill(250,0,250);
   if(mode == 2){
-    rect(mouseX-32.5,mouseY-20,65,40);
+    rect(mouseX-32.5,mouseY-20,65,game.size());
   }
   if(!paused){
     move();
@@ -71,51 +73,65 @@ void draw(){
   }
 }
 void move(){
-  for(float i=lineY; i>=0; i-=40){
+  for(float i=lineY; i>=0; i-=game.size()){
     line(400,i,660,i);
     fill(75,250,250);
-    if(game.getLine((Math.abs(int(i-659)) / 40)+line).getD() == 1){
-      rect(400,i,65,40);
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getD() == 1){
+      rect(400,i,65,game.size());
     }
-    if(game.getLine((Math.abs(int(i-659)) / 40)+line).getF() == 1){
-      rect(465,i,65,40);
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getF() == 1){
+      rect(465,i,65,game.size());
     }
-    if(game.getLine((Math.abs(int(i-659)) / 40)+line).getJ() == 1){
-      rect(530,i,65,40);
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getJ() == 1){
+      rect(530,i,65,game.size());
     }
-    if(game.getLine((Math.abs(int(i-659)) / 40)+line).getK() == 1){
-      rect(595,i,65,40);
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getK() == 1){
+      rect(595,i,65,game.size());
     }
     fill(250,0,250);
-    if(game.getLine((Math.abs(int(i-659)) / 40)+line).getD() == 2){
-      rect(400,i,65,40);
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getD() == 2){
+      rect(400,i,65,game.size());
     }
-    if(game.getLine((Math.abs(int(i-659)) / 40)+line).getF() == 2){
-      rect(465,i,65,40);
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getF() == 2){
+      rect(465,i,65,game.size());
     }
-    if(game.getLine((Math.abs(int(i-659)) / 40)+line).getJ() == 2){
-      rect(530,i,65,40);
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getJ() == 2){
+      rect(530,i,65,game.size());
     }
-    if(game.getLine((Math.abs(int(i-659)) / 40)+line).getK() == 2){
-      rect(595,i,65,40);
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getK() == 2){
+      rect(595,i,65,game.size());
     }
   }
   increment();  
 }
 void drawLines(){
-  for(float i=lineY; i>=0; i-=40){
+  for(float i=lineY; i>=0; i-=game.size()){
     line(400,i,660,i);
-    if(game.getLine((Math.abs(int(i-660)) / 40)+line).getD() == 1){
-      rect(400,i,65,40);
+    fill(75,250,250);
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getD() == 1){
+      rect(400,i,65,game.size());
     }
-    if(game.getLine((Math.abs(int(i-660)) / 40)+line).getF() == 1){
-      rect(465,i,65,40);
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getF() == 1){
+      rect(465,i,65,game.size());
     }
-    if(game.getLine((Math.abs(int(i-660)) / 40)+line).getJ() == 1){
-      rect(530,i,65,40);
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getJ() == 1){
+      rect(530,i,65,game.size());
     }
-    if(game.getLine((Math.abs(int(i-660)) / 40)+line).getK() == 1){
-      rect(595,i,65,40);
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getK() == 1){
+      rect(595,i,65,game.size());
+    }
+    fill(250,0,250);
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getD() == 2){
+      rect(400,i,65,game.size());
+    }
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getF() == 2){
+      rect(465,i,65,game.size());
+    }
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getJ() == 2){
+      rect(530,i,65,game.size());
+    }
+    if(game.getLine((Math.abs(int(i-659)) / game.size())+line).getK() == 2){
+      rect(595,i,65,game.size());
     }
   }
 }
@@ -123,7 +139,7 @@ boolean overButton(int x, int y, int w, int h){
   return mouseX >= x && mouseX <= x+w && mouseY >= y && mouseY <= y+h;
 }
 void increment(){
-  lineY += speed * 4;
+  lineY += speed * 8;
   if(lineY >= 660){
     lineY = 620;
     line++;
@@ -141,11 +157,11 @@ void mouseClicked(){
   }
   if(overButton(300,height-40,100,40)){
     paused = false;
-    sample.stop();
-    sample.jump(0);
+    game.stop();
+    game.play();
     ellapsedTime = 0;
     time = millis();
-    lineY = 640;
+    lineY = 660 - game.size();
     line = 0;
   }
   if(overButton(0,height-80,100,40)){
@@ -194,19 +210,20 @@ void mouseClicked(){
     mode = 3;
   }
   if(overButton(300,height-80,100,40)){
+    game.save();
   }
   if(mode == 1 && overButton(400,0,260,660)){
     if(mouseX < 465){
-      game.setD((Math.abs(int(mouseY)-659) / 40)+line,1);
+      game.setD((Math.abs(int(mouseY)-659) / game.size())+line,1);
     }
     else if(mouseX < 530){
-      game.setF((Math.abs(int(mouseY)-659) / 40)+line,1);
+      game.setF((Math.abs(int(mouseY)-659) / game.size())+line,1);
     }
     else if(mouseX < 595){
-      game.setJ((Math.abs(int(mouseY)-659) / 40)+line,1);
+      game.setJ((Math.abs(int(mouseY)-659) / game.size())+line,1);
     }
     else{
-      game.setK((Math.abs(int(mouseY)-659) / 40)+line,1);
+      game.setK((Math.abs(int(mouseY)-659) / game.size())+line,1);
     }
   }
   if(mode == 2 && overButton(400,0,260,660)){
@@ -253,7 +270,7 @@ void mouseClicked(){
           startJ = (Math.abs(int(mouseY)-659) / 40)+line;
         }else{
           for(int i = startJ; i<=(Math.abs(int(mouseY)-659) / 40)+line; i++){
-            game.setF(i,2);
+            game.setJ(i,2);
           }
           startJ = -1;
         }
@@ -268,7 +285,7 @@ void mouseClicked(){
           game.setK((Math.abs(int(mouseY)-659) / 40)+line,2);
           startK = (Math.abs(int(mouseY)-659) / 40)+line;
         }else{
-          for(int i = startD; i<=(Math.abs(int(mouseY)-659) / 40)+line; i++){
+          for(int i = startK; i<=(Math.abs(int(mouseY)-659) / 40)+line; i++){
             game.setK(i,2);
           }
           startK = -1;
@@ -297,29 +314,58 @@ void keyPressed(){
       if(ellapsedTime >= 1){
         time += 1000;
         ellapsedTime = millis() - time;
-        sample.jump(ellapsedTime/1000);
-        line -= 6;
+        game.jump(ellapsedTime/1000);
+        line -= game.bpm() / 30;
       }
     }
     if(keyCode == RIGHT){
       if(ellapsedTime <= sample.duration() * 1000){
         time -= 1000;
         ellapsedTime = millis() - time;
-        sample.jump(ellapsedTime/1000);
-        line += 6;
+        game.jump(ellapsedTime/1000);
+        line += game.bpm() / 30;
       }
     }
   }
   if(key == ' '){
     if(!paused){
       paused = true;
-      sample.stop();
+      game.stop();
       pauseTime = millis();
     }else{
       time += millis() - pauseTime;
       ellapsedTime = millis() - time;
-      sample.jump(ellapsedTime/1000);
+      game.jump(ellapsedTime/1000);
       paused = false;
     }
+  }
+  textSize(30);
+  if(key == 'd'){
+    game.hit();
+    if(game.getLine(2+line).getD() > 0 || (game.getLine(3+line).getD() > 0 && lineY >= 640)){
+      text("perfect",50,50);
+    }
+  }
+  if(key == 'f'){
+    game.hit();
+    if(game.getLine(2+line).getF() > 0 || (game.getLine(3+line).getF() > 0 && lineY >= 640)){
+      text("perfect",50,50);
+    }
+  }
+  if(key == 'j'){
+    game.hit();
+    if(game.getLine(2+line).getJ() > 0 || (game.getLine(3+line).getJ() > 0 && lineY >= 640)){
+      text("perfect",50,50);
+    }
+  }
+  if(key == 'k'){
+    game.hit();
+    if(game.getLine(2+line).getK() > 0 || (game.getLine(3+line).getK() > 0 && lineY >= 640)){
+      text("perfect",50,50);
+    }
+  }
+}
+void keyReleased(){
+  if(key == 'd'){
   }
 }
