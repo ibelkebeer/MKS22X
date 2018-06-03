@@ -1,4 +1,5 @@
 import processing.sound.*;
+import java.util.*;
 public class Map{
   private Line[] game;
   private String name;
@@ -20,7 +21,6 @@ public class Map{
   }
   public void play(){
     sample.play();
-    sample.add(20000.0);
   }
   public void jump(float time){
     sample.jump(time);
@@ -58,12 +58,47 @@ public class Map{
   public void save(){
     output = createWriter(name);
     for(int i=0; i<60; i++){
-      output.println("0000");
+      output.println("0 0 0 0");
     }
     for(int i=0; i<game.length; i++){
-      output.println("" + game[i].getD() + game[i].getF() + game[i].getJ() + game[i].getK());
+      output.println(game[i].getD() + " " + game[i].getF() + " " + game[i].getJ() + " " + game[i].getK());
     }
     output.flush();
     output.close();
+  }
+  public void load(){
+    File f = new File(dataPath(name));
+    if(f.exists()){
+    try{
+      BufferedReader reader = createReader(name);
+      for(int i=0; i<60; i++){
+        reader.readLine();
+      }
+      int i = 0;
+      String line;
+      while((line = reader.readLine()) != null){
+        String[] notes = split(line,' ');
+        for(int j=0; j<4; j++){
+          if(int(notes[j]) == 1){
+            if(j == 0){
+              System.out.println(1);
+              game[i].setD(1);
+            }
+            if(j == 1){
+              game[i].setF(1);
+            }
+            if(j == 2){
+              game[i].setJ(1);
+            }
+            if(j == 3){
+              game[i].setK(1);
+            }
+          }
+        }
+        i++;
+      }
+    }catch(IOException e){
+    }
+    }
   }
 }

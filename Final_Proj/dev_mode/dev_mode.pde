@@ -15,6 +15,8 @@ int startF = -1;
 int startJ = -1;
 int startK = -1;
 boolean paused = false;
+boolean perfect = false;
+int perfectCount = 0;
 Map game;
 void setup(){
   size(660,660);
@@ -26,6 +28,7 @@ void setup(){
   sample = new SoundFile(this,path1);
   hit = new SoundFile(this,path2);
   game = new Map(sample,hit,180,"Song2");
+  game.load();
   game.play();
   lineY = 660 - game.size();
 }
@@ -70,6 +73,14 @@ void draw(){
     move();
   }else{
     drawLines();
+  }
+  if(perfect){
+    text("perfect",50,50);
+    perfectCount++;
+    if(perfectCount == 20){
+      perfect = false;
+      perfectCount = 0;
+    }
   }
 }
 void move(){
@@ -156,9 +167,25 @@ void mouseClicked(){
     speed = 2;
   }
   if(overButton(300,height-40,100,40)){
+    if(startD != -1){
+        game.setD(startD,0);
+        startD = -1;
+      }
+      if(startF != -1){
+        game.setF(startF,0);
+        startF = -1;
+      }
+      if(startJ != -1){
+        game.setJ(startJ,0);
+        startJ = -1;
+      }
+      if(startK != -1){
+        game.setK(startK,0);
+        startK = -1;
+      }
     paused = false;
     game.stop();
-    game.play();
+    game.jump(0);
     ellapsedTime = 0;
     time = millis();
     lineY = 660 - game.size();
@@ -168,19 +195,19 @@ void mouseClicked(){
     if(mode == 2){
       if(startD != -1){
         game.setD(startD,0);
-        startD = 0;
+        startD = -1;
       }
       if(startF != -1){
         game.setF(startF,0);
-        startF = 0;
+        startF = -1;
       }
       if(startJ != -1){
         game.setJ(startJ,0);
-        startJ = 0;
+        startJ = -1;
       }
       if(startK != -1){
         game.setK(startK,0);
-        startK = 0;
+        startK = -1;
       }
     }
     mode = 1;
@@ -192,19 +219,19 @@ void mouseClicked(){
     if(mode == 2){
       if(startD != -1){
         game.setD(startD,0);
-        startD = 0;
+        startD = -1;
       }
       if(startF != -1){
         game.setF(startF,0);
-        startF = 0;
+        startF = -1;
       }
       if(startJ != -1){
         game.setJ(startJ,0);
-        startJ = 0;
+        startJ = -1;
       }
       if(startK != -1){
         game.setK(startK,0);
-        startK = 0;
+        startK = -1;
       }
     }
     mode = 3;
@@ -295,16 +322,16 @@ void mouseClicked(){
   }
   if(mode == 3 && overButton(400,0,260,660)){
     if(mouseX < 465){
-      game.setD((Math.abs(int(mouseY)-659) / 40)+line,0);
+      game.setD((Math.abs(int(mouseY)-660) / 40)+line,0);
     }
     else if(mouseX < 530){
-      game.setF((Math.abs(int(mouseY)-659) / 40)+line,0);
+      game.setF((Math.abs(int(mouseY)-660) / 40)+line,0);
     }
     else if(mouseX < 595){
-      game.setJ((Math.abs(int(mouseY)-659) / 40)+line,0);
+      game.setJ((Math.abs(int(mouseY)-660) / 40)+line,0);
     }
     else{
-      game.setK((Math.abs(int(mouseY)-659) / 40)+line,0);
+      game.setK((Math.abs(int(mouseY)-660) / 40)+line,0);
     }
   }
 }
@@ -343,29 +370,43 @@ void keyPressed(){
   if(key == 'd'){
     game.hit();
     if(game.getLine(2+line).getD() > 0 || (game.getLine(3+line).getD() > 0 && lineY >= 640)){
-      text("perfect",50,50);
+      perfect = true;
     }
   }
   if(key == 'f'){
     game.hit();
     if(game.getLine(2+line).getF() > 0 || (game.getLine(3+line).getF() > 0 && lineY >= 640)){
-      text("perfect",50,50);
+      perfect = true;
     }
   }
   if(key == 'j'){
     game.hit();
     if(game.getLine(2+line).getJ() > 0 || (game.getLine(3+line).getJ() > 0 && lineY >= 640)){
-      text("perfect",50,50);
+      perfect = true;
     }
   }
   if(key == 'k'){
     game.hit();
     if(game.getLine(2+line).getK() > 0 || (game.getLine(3+line).getK() > 0 && lineY >= 640)){
-      text("perfect",50,50);
+      perfect = true;
     }
   }
 }
 void keyReleased(){
-  if(key == 'd'){
+  if(key == 'd' && game.getLine(2+line).getD() == 2 || (game.getLine(3+line).getD() == 2 && lineY >= 640)){
+    game.hit();
+    perfect = true;
+  }
+  if(key == 'f' && game.getLine(2+line).getF() == 2 || (game.getLine(3+line).getF() == 2 && lineY >= 640)){
+    game.hit();
+    perfect = true;
+  }
+  if(key == 'j' && game.getLine(2+line).getJ() == 2 || (game.getLine(3+line).getJ() == 2 && lineY >= 640)){
+    game.hit();
+    perfect = true;
+  }
+  if(key == 'k' && game.getLine(2+line).getK() == 2|| (game.getLine(3+line).getK() == 2 && lineY >= 640)){
+    game.hit();
+    perfect = true;
   }
 }
