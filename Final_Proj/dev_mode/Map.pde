@@ -67,8 +67,6 @@ public class Map{
     output.close();
   }
   public void load(){
-    File f = new File(dataPath(name));
-    if(f.exists()){
     try{
       BufferedReader reader = createReader(name);
       for(int i=0; i<60; i++){
@@ -81,7 +79,6 @@ public class Map{
         for(int j=0; j<4; j++){
           if(int(notes[j]) == 1){
             if(j == 0){
-              System.out.println(1);
               game[i].setD(1);
             }
             if(j == 1){
@@ -98,7 +95,6 @@ public class Map{
         i++;
       }
     }catch(IOException e){
-    }
     }
   }
 }
